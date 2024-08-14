@@ -1,12 +1,15 @@
 from django.shortcuts import render
-from py2neo import Graph
+from aura_config import get_driver
 
-# Create your views here.
-db = Graph('bolt://localhost:7687', auth=("neo4j", "tryagain"))
+# Vérifier la connexion
+db = get_driver()
+print(db)
 
-test_querry = """
+# Requête Cypher pour créer un nœud 'Prompt'
+test_query = """
     CREATE (p:Prompt {pid: '1234', content: 'This is a sample prompt'})
     RETURN p
 """
 
-db.run(test_querry)
+# Exécution de la requête Cypher
+db.run(test_query)
